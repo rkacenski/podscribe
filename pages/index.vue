@@ -1,47 +1,38 @@
 <template>
   <section class="section">
     <div class="columns is-mobile">
-
-      <card
-        title="Free"
-        icon="github-circle"
-      >
-        Open source on <a href="https://github.com/buefy/buefy"> GitHub</a>
-      </card>
-
-      <card
-        title="Responsive"
-        icon="cellphone-link"
-      >
-        <b class="has-text-grey">Every</b> component is responsive
-      </card>
-
-      <card
-        title="Modern"
-        icon="alert-decagram"
-      >
-        Built with <a href="https://vuejs.org/">Vue.js</a> and <a href="http://bulma.io/">Bulma</a>
-      </card>
-
-      <card
-        title="Lightweight"
-        icon="arrange-bring-to-front"
-      >
-        No other internal dependency
-      </card>
-
+        <div class="column is-8 is-offset-2">
+            <p class="title is-2">Upload show</p>
+             <b-field class="file">
+                <b-upload v-model="file">
+                    <a class="button is-primary">
+                        <b-icon icon="upload"></b-icon>
+                        <span>Click to uploaddd</span>
+                    </a>
+                </b-upload>
+                <span class="file-name" v-if="file">
+                    {{ file.name }}
+                </span>
+            </b-field>
+        </div>
     </div>
   </section>
 </template>
 
 <script>
-import Card from '~/components/Card'
 
 export default {
-  name: 'HomePage',
-
-  components: {
-    Card
-  }
+    name: 'HomePage',
+    data() {
+        return {
+            file: null,
+        }
+    },
+    mounted() {
+        this.$axios.get('/.netlify/functions/hello/hello')
+            .then( r => {
+                console.log(r.data); 
+            })
+    }
 }
 </script>
